@@ -1,4 +1,4 @@
-const API = "http://localhost:5000/api";
+const API = "https://notes-app-mauve-omega-23.vercel.app";
 
 function register() {
   fetch(`${API}/auth/register`, {
@@ -13,7 +13,7 @@ function register() {
   .then(res => res.json())
   .then(data => {
     alert(data.message);
-    window.location.href = "login.html";
+    window.location.href = "index.html";
   });
 }
 
