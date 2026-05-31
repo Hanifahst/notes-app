@@ -71,38 +71,46 @@ function loadNotes() {
   })
   .then(res => res.json())
   .then(data => {
+
+    console.log("LOAD NOTES =", data);
+
     const noteCount = document.getElementById("noteCount");
-    
+
     if (noteCount) {
-        noteCount.textContent = `${data.length} Notes`;
+      noteCount.textContent = `${data.length} Notes`;
     }
 
     const list = document.getElementById("list");
     list.innerHTML = "";
 
     if (data.length === 0) {
-        list.innerHTML = `
+      list.innerHTML = `
         <div class="empty">
           <div class="empty-icon">^. .^₎⟆</div>
           <p>Belum ada catatan</p>
           <small>Tulis sesuatu untuk memulai</small>
         </div>
-        `;
-        return;
+      `;
+      return;
     }
 
     data.forEach(n => {
-        list.innerHTML += `
+      console.log("NOTE =", n);
+
+      list.innerHTML += `
         <li>
-        <span class="note-text">𖹭 ${n.text}</span>
-        
-        <div class="actions">
-        <button onclick="editNote(${n.id}, \`${n.text}\`)">✎</button>
-        <button onclick="deleteNote(${n.id})">✖</button>
-        </div>
+          <span class="note-text">𖹭 ${n.text}</span>
+
+          <div class="actions">
+            <button onclick="editNote(${n.id}, \`${n.text}\`)">✎</button>
+            <button onclick="deleteNote(${n.id})">✖</button>
+          </div>
         </li>
-        `;
+      `;
     });
+  })
+  .catch(err => {
+    console.error("ERROR LOAD NOTES =", err);
   });
 }
 
