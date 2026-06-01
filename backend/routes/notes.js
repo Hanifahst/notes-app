@@ -66,8 +66,6 @@ router.put("/:id", auth, async (req, res) => {
 });
 
 router.delete("/:id", auth, async (req, res) => {
-    console.log("DELETE TERPANGGIL");
-
     db.query(
         "DELETE FROM notes WHERE id=? AND user_id=?",
         [req.params.id, req.user.id],
@@ -78,13 +76,9 @@ router.delete("/:id", auth, async (req, res) => {
                 return res.status(500).json(err);
             }
 
-            console.log("MYSQL DELETE BERHASIL");
-
             await Log.create({
                 activity: `${req.user.username} menghapus catatan`
             });
-
-            console.log("LOG DELETE BERHASIL");
 
             res.json({
                 message: "Catatan berhasil dihapus"
